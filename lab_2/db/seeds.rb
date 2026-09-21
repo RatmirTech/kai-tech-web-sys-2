@@ -1,9 +1,19 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
+# Демонстрационные данные: два пользователя и два микросообщения у первого из них.
+# Скрипт идемпотентный: повторный запуск не создаёт дубликатов.
 #
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+#   bin/rails db:seed
+
+users = [
+  { name: "Michael Hartl", email: "michael@example.org" },
+  { name: "Foo Bar",       email: "foo@bar.com" }
+]
+
+michael, _foo = users.map do |attrs|
+  User.find_or_create_by!(email: attrs[:email]) { |user| user.name = attrs[:name] }
+end
+
+[ "First micropost!", "Second micropost" ].each do |content|
+  michael.microposts.find_or_create_by!(content: content)
+end
+
+puts "Пользователей: #{User.count}, микросообщений: #{Micropost.count}"

@@ -4,6 +4,8 @@
 
 require_relative "sandbox"
 
+users_before = User.count
+
 sandbox do
   user = User.new(user_attrs(name: "Michael Hartl", email: "michael@example.com"))
   show "User.new(...).valid?", user.valid?
@@ -33,4 +35,4 @@ sandbox do
   show "another.persisted?", another.persisted?
 end
 
-show "User.count после sandbox (откат)", User.count
+show "число пользователей до и после sandbox совпадает", User.count == users_before

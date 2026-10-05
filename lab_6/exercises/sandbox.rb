@@ -5,8 +5,11 @@
 #   bin/rails runner exercises/6_1_3_creating_users.rb
 
 # Имитация `rails console --sandbox`: все изменения базы откатываются.
+# Внутри песочницы таблица users сначала очищается (тоже внутри транзакции),
+# поэтому результат не зависит от того, что уже лежит в базе development.
 def sandbox
   ActiveRecord::Base.transaction do
+    User.delete_all
     yield
     raise ActiveRecord::Rollback
   end

@@ -1,0 +1,49 @@
+source "https://rubygems.org"
+
+# Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
+gem "rails", "~> 8.1.3", ">= 8.1.3.1"
+# Asset pipeline and Sass, as in the book (Listing 5.5)
+gem "sprockets-rails"
+gem "sassc-rails"
+gem "bootstrap-sass", "3.4.1"
+# Use sqlite3 as the database for Active Record
+gem "sqlite3", ">= 2.1"
+# Use the Puma web server [https://github.com/puma/puma]
+gem "puma", ">= 5.0"
+# Build JSON APIs with ease [https://github.com/rails/jbuilder]
+gem "jbuilder"
+
+# json 3.x несовместим с Rails 8.1.3.x: JSON.parse падает при расшифровке сессии
+gem "json", "< 3"
+
+# Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
+# gem "bcrypt", "~> 3.1.7"
+
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem "tzinfo-data", platforms: %i[ windows jruby ]
+
+# Reduces boot times through caching; required in config/boot.rb
+gem "bootsnap", require: false
+
+group :development, :test do
+  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
+end
+
+group :development do
+  # Use console on exceptions pages [https://github.com/rails/web-console]
+  gem "web-console"
+end
+
+group :test do
+  # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+  gem "capybara"
+  gem "selenium-webdriver"
+
+  # Гемы для тестов из главы 3 (листинг 3.2 и раздел 3.6)
+  gem "rails-controller-testing"
+  gem "minitest", "~> 5.25"
+  gem "minitest-reporters"
+  gem "guard"
+  gem "guard-minitest"
+end
